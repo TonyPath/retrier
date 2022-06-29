@@ -12,13 +12,13 @@ type Periodic struct {
 }
 
 // NewPeriodicRetrier returns a new Periodic value for use.
-func NewPeriodicRetrier(attemps, waitTimeInMillis int) (*Periodic, error) {
-	if attemps < 1 {
+func NewPeriodicRetrier(attempts, waitTimeInMillis int) (*Periodic, error) {
+	if attempts < 1 {
 		return nil, errors.New("attempts should >= 1")
 	}
 
 	return &Periodic{
-		maxAttempts: attemps,
+		maxAttempts: attempts,
 		backoff:     time.Duration(waitTimeInMillis) * time.Millisecond,
 	}, nil
 }

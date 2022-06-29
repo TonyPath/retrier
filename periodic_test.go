@@ -102,7 +102,7 @@ func TestPeriodicRetrier_Retry(t *testing.T) {
 
 func TestNewPeriodicRetrier(t *testing.T) {
 	type args struct {
-		attemps          int
+		attempts         int
 		waitTimeInMillis int
 	}
 	tests := []struct {
@@ -114,7 +114,7 @@ func TestNewPeriodicRetrier(t *testing.T) {
 		{
 			name: "",
 			args: args{
-				attemps:          3,
+				attempts:         3,
 				waitTimeInMillis: 1000,
 			},
 			want: &Periodic{
@@ -126,7 +126,7 @@ func TestNewPeriodicRetrier(t *testing.T) {
 		{
 			name: "a",
 			args: args{
-				attemps:          0,
+				attempts:         0,
 				waitTimeInMillis: 1000,
 			},
 			want:    nil,
@@ -135,7 +135,7 @@ func TestNewPeriodicRetrier(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := NewPeriodicRetrier(tt.args.attemps, tt.args.waitTimeInMillis)
+			got, err := NewPeriodicRetrier(tt.args.attempts, tt.args.waitTimeInMillis)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("NewPeriodicRetrier() error = %v, wantErr %v", err, tt.wantErr)
 				return
