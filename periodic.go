@@ -5,11 +5,13 @@ import (
 	"time"
 )
 
+// Periodic represents an implementation of Retrier interface.
 type Periodic struct {
 	maxAttempts int
 	backoff     time.Duration
 }
 
+// NewPeriodicRetrier returns a new Periodic value for use.
 func NewPeriodicRetrier(attemps, waitTimeInMillis int) (*Periodic, error) {
 	if attemps < 1 {
 		return nil, errors.New("attempts should >= 1")
@@ -21,6 +23,7 @@ func NewPeriodicRetrier(attemps, waitTimeInMillis int) (*Periodic, error) {
 	}, nil
 }
 
+// Retry performs the execution of a task and applies a retry policy.
 func (r *Periodic) Retry(wrappedTask WrappedTask, isRetryAble IsRetryAble) (interface{}, error) {
 	var attempts = 0
 
