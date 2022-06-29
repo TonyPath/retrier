@@ -3,7 +3,7 @@ Package retrier provides support for retry the execution of a task
 
 Example Usage
 
-	var ErrRetryAble = errors.New("non-retryable error")
+	var ErrRetryAble = errors.New("retryable error")
 
 	retrier, err := NewPeriodicRetrier(10, 1000)
 	if err != nil {
