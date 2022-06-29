@@ -12,13 +12,13 @@ Example Usage
 	}
 
 	resp, err := retrier.Retry(func() (interface{}, error) {
-		resp, err := http.Get("URL")
-		return resp, err
+			resp, err := http.Get("URL")
+			return resp, err
 		}, func(err error) bool {
-		if errors.Is(err, ErrRetryAble) {
-			return true
-		}
-		return false
-	})
+			if errors.Is(err, ErrRetryAble) {
+				return true
+			}
+			return false
+		})
 */
 package retrier
