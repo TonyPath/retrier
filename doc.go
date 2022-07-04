@@ -11,7 +11,7 @@ Example Usage
 		return
 	}
 
-	resp, err := retrier.Retry(func() (interface{}, error) {
+	resp, err := retrier.Retry(func() (any, error) {
 			resp, err := http.Get("URL")
 			return resp, err
 		}, func(err error) bool {

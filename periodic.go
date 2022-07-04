@@ -24,7 +24,7 @@ func NewPeriodicRetrier(attempts, waitTimeInMillis int) (*Periodic, error) {
 }
 
 // Retry performs the execution of a task and applies a retry policy.
-func (r *Periodic) Retry(wrappedTask WrappedTask, isRetryAble IsRetryAble) (interface{}, error) {
+func (r *Periodic) Retry(wrappedTask WrappedTask, isRetryAble IsRetryAble) (any, error) {
 	var attempts = 0
 
 	for {

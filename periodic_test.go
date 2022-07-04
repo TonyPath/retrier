@@ -21,14 +21,14 @@ func TestPeriodicRetrier_Retry(t *testing.T) {
 	)
 
 	tests := map[string]struct {
-		task        func() (res interface{}, err error)
+		task        func() (res any, err error)
 		wantCall    int
-		wantResult  interface{}
+		wantResult  any
 		wantErr     bool
 		wantErrType error
 	}{
 		"succeeded immediately": {
-			task: func() (res interface{}, err error) {
+			task: func() (res any, err error) {
 				calls++
 				return "task response", nil
 			},
@@ -38,7 +38,7 @@ func TestPeriodicRetrier_Retry(t *testing.T) {
 			wantErrType: nil,
 		},
 		"succeeded at 3rd attempt": {
-			task: func() (res interface{}, err error) {
+			task: func() (res any, err error) {
 				calls++
 				if calls == 3 {
 					return []string{"task response"}, nil
@@ -51,7 +51,7 @@ func TestPeriodicRetrier_Retry(t *testing.T) {
 			wantErrType: nil,
 		},
 		"reach max attempts": {
-			task: func() (res interface{}, err error) {
+			task: func() (res any, err error) {
 				calls++
 				return "", errRetryAble
 			},
@@ -60,7 +60,7 @@ func TestPeriodicRetrier_Retry(t *testing.T) {
 			wantErrType: ErrLimitExceeded,
 		},
 		"non-retryable- stop retrying": {
-			task: func() (res interface{}, err error) {
+			task: func() (res any, err error) {
 				calls++
 				return nil, errNonRetryAble
 			},
@@ -79,7 +79,7 @@ func TestPeriodicRetrier_Retry(t *testing.T) {
 				backoff:     backoff,
 			}
 
-			res, err := retrier.Retry(func() (interface{}, error) {
+			res, err := retrier.Retry(func() (any, error) {
 				res, err := tcase.task()
 				return res, err
 			}, func(err error) bool {

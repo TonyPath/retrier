@@ -15,7 +15,7 @@ backoffInMillis := 1000
 retrier, _ := NewPeriodicRetrier(maxAttempts, backoffInMillis)
 
 res, err := retrier.Retry(
-	func() (interface{}, error) {
+	func() (any, error) {
             res, err := http.Get(...)
             return res, err
 	}, 
